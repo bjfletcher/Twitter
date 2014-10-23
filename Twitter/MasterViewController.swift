@@ -32,9 +32,14 @@ class MasterViewController: UITableViewController {
     }
 
     func insertNewObject(sender: AnyObject) {
+        let offsetX = self.tableView.contentOffset.x
+        let offsetY = self.tableView.contentOffset.y
         objects.insertObject(NSDate(), atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+//        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+        self.tableView.reloadData()
+        let rowHeight = self.tableView.rectForRowAtIndexPath(indexPath).height
+        self.tableView.setContentOffset(CGPointMake(offsetX, offsetY + rowHeight), animated: false)
     }
 
     // MARK: - Segues
